@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Data</title>
+    <link href="/dist/output.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@400;500&display=swap');
+        body {
+            background-color: #000000;
+            color: #fafafa;
+            font-family: 'IBM Plex Mono', 'Inter', sans-serif;
+        }
+    </style>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/1db7939364.js" crossorigin="anonymous"></script>
+</head>
+<body class="flex items-center justify-center h-screen">
+    <div class="flex flex-col gap-6 w-full max-w-md">
+        <header class="flex justify-between w-full">
+            <button id="backButton" class="text-gray-400 text-sm">// Back</button>
+        </header>
+        <main>
+            <h2 class="text-4xl font-bold text-white">Car Data</h2>
+            <div id="carData" class="mt-4"></div>
+            <button id="shareTwitterButton" class="w-full mt-4 p-2 bg-gray-600 rounded-md text-black font-medium" style="display: none;"><i class="fa-brands fa-square-twitter"></i> Share on Twitter</button>
+            <button id="getAdvancedDataButton" class="w-full mt-4 p-2 bg-gray-600 rounded-md text-black font-medium" style="display: none;"><i class="fa-solid fa-sliders"></i> Get Vehicle Attributes</button>
+            <button id="getRewardsHistoryButton" class="w-full mt-4 p-2 bg-gray-600 rounded-md text-black font-medium" style="display: none;"><i class="fa-solid fa-clock"></i> Get Rewards History</button>
+            <div id="advancedCarData" class="mt-4"></div>
+        </main>
+    </div>
+    <script src="/app.js"></script>
+</body>
+</html>

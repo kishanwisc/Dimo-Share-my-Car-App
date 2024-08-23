@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0">
+    <title>Share my Car</title>
+    <link href="/dist/output.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@400;500&display=swap');
+
+        body {
+            background-color: #000000;
+            color: #fafafa;
+            font-family: 'IBM Plex Mono', 'Inter', sans-serif;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .button-group button {
+            flex: 1;
+            padding: 10px;
+            font-size: 0.9em;
+        }
+
+        .search-section {
+            margin-top: 2rem;
+        }
+
+        .autocomplete-list {
+            list-style-type: none;
+            padding-left: 0;
+            max-height: 150px;
+            overflow-y: auto;
+            background-color: #09090b;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin-top: 5px;
+            display: none;
+       
+        }
+
+        .autocomplete-list li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .autocomplete-list li:hover {
+            background-color: #333;
+        }
+
+        .search-result-title {
+            color: #888;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+      
+            margin-bottom: 0.5rem;
+      
+        }
+
+        .data-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 400px; 
+        }
+    </style>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/1db7939364.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="loginPage" class="flex items-center justify-center h-screen page">
+        <div class="data-container">
+            <header class="flex justify-between w-full">
+                <div class="text-gray-400 text-sm">//BETA</div>
+                <div class="text-gray-400 text-sm">v1.2</div>
+                <button id="githubButton" class="github-button">
+                    <i class="fa-brands fa-github"></i>
+                </button>
+            </header>
+            <main>
+                <div class="flex justify-center mb-4">
+                    <img src="https://pbs.twimg.com/profile_images/1513193957471277067/KZe8h-tA_400x400.png" alt="DIMO Logo" class="dimo-logo">
+                </div>
+                <h1 class="text-5xl font-bold text-white">Share <br>my Car</h1>
+                <p class="text-gray-400 mt-4">Access on-chain information about any car on DIMO. <br>Enter a Token ID to get started.</p>
+                <div class="mt-12 p-4 bg-[#09090b] rounded-lg border border-gray-700">
+                    <label class="block mb-2 text-sm font-medium">Enter your Token ID</label>
+                    <input type="text" id="tokenInput" class="w-full p-2 bg-black rounded-md border border-gray-700" placeholder="123456">
+                    <button id="getCarDataButton" class="w-full mt-4 p-2 bg-gray-600 rounded-md text-black font-medium">Get car data</button>
+                </div>
+
+            
+                <div class="search-section">
+                    <label class="block mb-2 text-sm font-medium">Search for a Vehicle</label>
+                    <input type="text" id="deviceSearchInput" class="w-full p-2 bg-black rounded-md border border-gray-700" placeholder="Start typing to search...">
+                    <p class="search-result-title">Search result vehicle tokens:</p>
+           
+                    <ul id="autocompleteList" class="autocomplete-list"></ul>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="carDataPage" class="flex items-center justify-center h-screen page" style="display: none;">
+        <div class="data-container">
+            <button id="backButton" class="back-button"><i class="fa-solid fa-arrow-left"></i> Back</button>
+
+            <div class="button-group">
+                <button id="overviewButton" class="bg-gray-600 rounded-md text-black font-medium"><i class="fa-solid fa-car-on"></i> Overview</button>
+                <button id="getAdvancedDataButton" class="bg-gray-600 rounded-md text-black font-medium" style="display: none;"><i class="fa-solid fa-sliders"></i> Attributes</button>
+                <button id="getRewardsHistoryButton" class="bg-gray-600 rounded-md text-black font-medium" style="display: none;"><i class="fa-solid fa-clock"></i> Rewards</button>
+            </div>
+
+         
+            <div class="button-group mt-4">
+                <button id="shareTwitterButton" class="share-button bg-black text-blue-500 rounded-md border border-gray-600 p-2">
+
+                    <i class="fa-brands fa-square-twitter"></i>
+                </button>
+                <button id="viewOnPolygonScanButton" class="polygon-button">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                </button>
+            </div>
+
+
+            <div class="content-section">
+                <div id="carData" class="mt-4"></div>
+                <div id="advancedCarData" class="mt-4"></div>
+                <div id="rewardsHistory" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+    <script src="/app.js"></script>
+</body>
+
+</html>
