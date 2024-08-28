@@ -332,8 +332,65 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const githubButton = document.getElementById('githubButton');
     githubButton.addEventListener('click', () => {
-        window.open('https://github.com/kishanwisc/Dimo-Share-my-Car-App', '_blank');
+        window.open('https://github.com/DIMO-Network/vehicle-info-web', '_blank');
     });
 
    
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('ownerSearchInput');
+    const autocompleteList = document.getElementById('ownerAutocompleteList');
+
+    const fetchTokenIdsByOwner = async (ownerAddress) => {
+        try {
+            console.log('Fetching token IDs for Owner Address:', ownerAddress);
+
+            const response = await fetch('/fetchTokenIdsByOwner', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ownerAddress }),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                autocompleteList.innerHTML = `<li>Error: ${errorText}</li>`;
+                return;
+            }
+
+            const tokenData = await response.json();
+
+            autocompleteList.innerHTML = '';
+            if (tokenData.length > 0) {
+                tokenData.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Token ID: ${item.tokenId}`;
+                    listItem.classList.add('autocomplete-item');
+
+                    listItem.addEventListener('click', () => {
+                        window.location.href = `/token/${item.tokenId}`;
+                    });
+
+                    autocompleteList.appendChild(listItem);
+                });
+            } else {
+                autocompleteList.innerHTML = '<li>No tokens found</li>';
+            }
+            autocompleteList.style.display = 'block';
+        } catch (error) {
+            console.error('Error fetching token IDs:', error);
+        }
+    };
+
+    searchInput.addEventListener('input', async (e) => {
+        const query = e.target.value.trim();
+
+        if (query.length >= 2) {
+            fetchTokenIdsByOwner(query);
+        } else {
+            autocompleteList.style.display = 'none';
+        }
+    });
 });

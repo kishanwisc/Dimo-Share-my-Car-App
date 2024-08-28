@@ -273,3 +273,41 @@ app.post('/fetchTokenIds', async (req, res) => {
     }
 });
 
+app.post('/fetchTokenIdsByOwner', async (req, res) => {
+    const { ownerAddress } = req.body;
+    console.log('Received Owner Address:', ownerAddress);
+
+    const query = `
+        query {
+            vehicles(first: 100, filterBy: { owner: "${ownerAddress}" }) {
+                nodes {
+                    tokenId
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await axios.post(process.env.DIMO_API_URL, { query }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+        });
+
+        const responseData = response.data;
+        if (responseData.errors) {
+            console.error('GraphQL errors:', responseData.errors);
+            return res.status(500).json({ errors: responseData.errors });
+        }
+
+        if (responseData.data && responseData.data.vehicles) {
+            return res.json(responseData.data.vehicles.nodes);
+        } else {
+            return res.status(404).json({ error: 'No tokens found for the given owner address.' });
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+        return res.status(500).json({ error: error.message });
+    }
+});

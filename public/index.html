@@ -43,7 +43,6 @@
             border-radius: 5px;
             margin-top: 5px;
             display: none;
-       
         }
 
         .autocomplete-list li {
@@ -59,9 +58,7 @@
             color: #888;
             font-size: 0.875rem;
             margin-top: 1rem;
-      
             margin-bottom: 0.5rem;
-      
         }
 
         .data-container {
@@ -105,13 +102,19 @@
                     <button id="getCarDataButton" class="w-full mt-4 p-2 bg-gray-600 rounded-md text-black font-medium">Get car data</button>
                 </div>
 
-            
+                <!-- Existing Search for Vehicle by Model -->
                 <div class="search-section">
                     <label class="block mb-2 text-sm font-medium">Search for a Vehicle</label>
                     <input type="text" id="deviceSearchInput" class="w-full p-2 bg-black rounded-md border border-gray-700" placeholder="Start typing to search...">
                     <p class="search-result-title">Search result vehicle tokens:</p>
-           
                     <ul id="autocompleteList" class="autocomplete-list"></ul>
+                </div>
+
+                <!-- New Search for Vehicle by Owner Address -->
+                <div class="search-section">
+                    <label class="block mb-2 text-sm font-medium">Search by Owner HEX Address</label>
+                    <input type="text" id="ownerSearchInput" class="w-full p-2 bg-black rounded-md border border-gray-700" placeholder="Enter owner address...">
+                    <ul id="ownerAutocompleteList" class="autocomplete-list"></ul>
                 </div>
             </main>
         </div>
@@ -127,17 +130,14 @@
                 <button id="getRewardsHistoryButton" class="bg-gray-600 rounded-md text-black font-medium" style="display: none;"><i class="fa-solid fa-clock"></i> Rewards</button>
             </div>
 
-         
             <div class="button-group mt-4">
                 <button id="shareTwitterButton" class="share-button bg-black text-blue-500 rounded-md border border-gray-600 p-2">
-
                     <i class="fa-brands fa-square-twitter"></i>
                 </button>
                 <button id="viewOnPolygonScanButton" class="polygon-button">
                     <i class="fa-solid fa-up-right-from-square"></i>
                 </button>
             </div>
-
 
             <div class="content-section">
                 <div id="carData" class="mt-4"></div>
